@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import GlobalStyles from './GlobalStyles'
-import theme from './theme'
-import Login from './Login'
 import { getTokenFromResponse } from './spotify'
 import SpotifyWebApi from 'spotify-web-api-js'
+
+import theme from './theme'
+import Login from './Login'
+import Player from './Player'
+import GlobalStyles from './GlobalStyles'
+import { useDataLayerValue } from './DataLayer'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -14,7 +17,7 @@ const AppWrapper = styled.div`
 const spotify = new SpotifyWebApi()
 
 function App() {
-  const [token, setToken] = useState(null)
+  const [{ user, token }, dispatch] = useDataLayerValue()
 
   useEffect(() => {
     const hash = getTokenFromResponse()
@@ -22,18 +25,29 @@ function App() {
     const _token = hash.access_token
 
     if (_token) {
-      setToken(_token)
+      dispatch({
+        type: 'SET_TOKEN',
+        token: _token,
+      })
       spotify.setAccessToken(_token)
       spotify.getMe().then((user) => {
-        console.log(user, 'user')
+        dispatch({
+          type: 'SET_USER',
+          user: user,
+        })
       })
     }
   }, [])
 
+  console.log(user)
+  console.log(token)
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <AppWrapper>{token ? <h1>Logged in</h1> : <Login />}</AppWrapper>
+      <AppWrapper>
+        {token ? <Player spotify={spotify} /> : <Login />}
+      </AppWrapper>
     </ThemeProvider>
   )
 }
