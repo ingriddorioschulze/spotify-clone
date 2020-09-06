@@ -1,10 +1,24 @@
 import React from 'react'
+import styled from 'styled-components'
+
+import Sidebar from './Sidebar'
+import Body from './Body'
+import Footer from './Footer'
+
+const PlayerWrapper = styled.div``
+const PlayerBody = styled.div`
+  display: flex;
+`
 
 function Player({ spotify }) {
   return (
-    <div>
-      <h1>Welcome to Spotify Player</h1>
-    </div>
+    <PlayerWrapper>
+      <PlayerBody>
+        <Sidebar />
+        <Body />
+      </PlayerBody>
+      <Footer />
+    </PlayerWrapper>
   )
 }
 

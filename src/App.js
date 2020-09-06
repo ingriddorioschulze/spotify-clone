@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { getTokenFromResponse } from './spotify'
 import SpotifyWebApi from 'spotify-web-api-js'
@@ -9,11 +9,7 @@ import Player from './Player'
 import GlobalStyles from './GlobalStyles'
 import { useDataLayerValue } from './DataLayer'
 
-const AppWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`
+const AppWrapper = styled.div``
 const spotify = new SpotifyWebApi()
 
 function App() {
@@ -36,11 +32,14 @@ function App() {
           user: user,
         })
       })
+      spotify.getUserPlaylists().then((playlists) => {
+        dispatch({
+          type: 'SET_PLAYLISTS',
+          playlists: playlists,
+        })
+      })
     }
   }, [])
-
-  console.log(user)
-  console.log(token)
 
   return (
     <ThemeProvider theme={theme}>
