@@ -15,7 +15,7 @@ function Player({ spotify }) {
     <PlayerWrapper>
       <PlayerBody>
         <Sidebar />
-        <Body />
+        <Body spotify={spotify} />
       </PlayerBody>
       <Footer />
     </PlayerWrapper>
