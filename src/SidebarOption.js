@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+//#region
 const SidebarOptionWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -24,6 +25,7 @@ const SidebarOptionWrapper = styled.div`
     font-size: 14px;
   }
 `
+//#endregion
 
 function SidebarOption({ title, Icon }) {
   return (

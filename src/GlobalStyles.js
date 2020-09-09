@@ -1,10 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
-
-  body ::-webkit-scrollbar {
-    display: none;
-  }
   
   * {
     padding: 0;
@@ -12,7 +8,5 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: "Montserrat"
   }
-
-  
 `
 export default GlobalStyles

@@ -7,11 +7,11 @@ import HomeIcon from '@material-ui/icons/Home'
 import SearchIcon from '@material-ui/icons/Search'
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic'
 
+//#region
 const SidebarWrapper = styled.div`
-  height: 100vh;
   flex: 0.2;
   color: white;
-  height: 100vh;
+  min-height: 100vh;
   min-width: 230px;
   padding-left: 10px;
   padding-right: 10px;
@@ -36,6 +36,7 @@ const SidebarWrapper = styled.div`
     margin: 10px auto;
   }
 `
+//#endregion
 
 function Sidebar() {
   const [{ playlists }, dispatch] = useDataLayerValue()

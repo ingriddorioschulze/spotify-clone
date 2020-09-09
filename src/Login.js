@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { loginUrl } from './spotify'
 
+//#region
 const LoginWrapper = styled.div`
   display: grid;
   place-items: center;
@@ -9,7 +10,7 @@ const LoginWrapper = styled.div`
   background-color: black;
 
   > img {
-    width: 100%;
+    width: 30%;
   }
 
   > a {
@@ -22,6 +23,7 @@ const LoginWrapper = styled.div`
     text-decoration: none;
   }
 `
+//#endregion
 
 function Login() {
   return (
