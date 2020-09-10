@@ -42,7 +42,6 @@ const HeaderLeft = styled.div`
 function Header() {
   const [{ user }, dispatch] = useDataLayerValue()
 
-  console.log(user)
   return (
     <HeaderWrapper>
       <HeaderLeft>

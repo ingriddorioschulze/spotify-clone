@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useDataLayerValue } from './DataLayer'
 
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious'
 import SkipNextIcon from '@material-ui/icons/SkipNext'
 import ShuffleIcon from '@material-ui/icons/Shuffle'
 import RepeatIcon from '@material-ui/icons/Repeat'
 import VolumeDownIcon from '@material-ui/icons/VolumeDown'
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious'
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay'
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline'
+import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
 import { Grid, Slider } from '@material-ui/core'
 
-//#region
+//#region styles
 const FooterWrapper = styled.div`
   position: fixed;
   display: flex;
@@ -79,26 +81,106 @@ const FooterRight = styled.div`
 `
 //#endregion
 
-function Footer() {
+function Footer({ spotify }) {
+  const [{ token, item, playing }, dispatch] = useDataLayerValue()
+
+  useEffect(() => {
+    spotify.getMyCurrentPlaybackState().then((r) => {
+      dispatch({
+        type: 'SET_PLAYING',
+        playing: r.is_playing,
+      })
+
+      dispatch({
+        type: 'SET_ITEM',
+        item: r.item,
+      })
+    })
+  }, [spotify])
+
+  //#region functions
+
+  function handlePlayPause() {
+    if (playing) {
+      spotify.pause()
+      dispatch({
+        type: 'SET_PLAYING',
+        playing: false,
+      })
+    } else {
+      spotify.play().catch((e) => console.error('fail', e))
+      dispatch({
+        type: 'SET_PLAYING',
+        playing: true,
+      })
+    }
+  }
+
+  function skipNext() {
+    spotify.skipToNext()
+    spotify.getMyCurrentPlayingTrack().then((r) => {
+      dispatch({
+        type: 'SET_ITEM',
+        item: r.item,
+      })
+      dispatch({
+        type: 'SET_PLAYING',
+        playing: true,
+      })
+    })
+  }
+
+  function skipPrevious() {
+    spotify.skipToPrevious(
+      spotify.getMyCurrentPlayingTrack().then((r) => {
+        dispatch({
+          type: 'SET_ITEM',
+          item: r.item,
+        })
+        dispatch({
+          type: 'SET_PLAYING',
+          playing: true,
+        })
+      }),
+    )
+  }
+  //#endregion
+
   return (
     <FooterWrapper>
       <FooterLeft>
-        <img src="" alt="album cover" />
-        <div className="footer-song-info">
-          <h4>Eminência Parda</h4>
-          <p>Emicida</p>
-        </div>
+        <img src={item?.album.images[0].url} alt={item?.name} />
+        {item ? (
+          <div className="footer-song-info">
+            <h4>{item.name}</h4>
+            <p>{item.artists.map((artist) => artist.name).join(', ')}</p>
+          </div>
+        ) : (
+          <div className="footer-song-info">
+            <h4>No song is playing</h4>
+            <p>...</p>
+          </div>
+        )}
       </FooterLeft>
 
       <FooterCenter>
-        <ShuffleIcon className="footer-green"></ShuffleIcon>
-        <SkipPreviousIcon className="footer-icon"></SkipPreviousIcon>
-        <PlayCircleOutlineIcon
-          className="footer-icon"
-          fontSize="large"
-        ></PlayCircleOutlineIcon>
-        <SkipNextIcon className="footer-icon"></SkipNextIcon>
-        <RepeatIcon className="footer-green"></RepeatIcon>
+        <ShuffleIcon className="footer-green" />
+        <SkipPreviousIcon onClick={skipNext} className="footer-icon" />
+        {playing ? (
+          <PauseCircleOutlineIcon
+            onClick={handlePlayPause}
+            className="footer-icon"
+            fontSize="large"
+          />
+        ) : (
+          <PlayCircleOutlineIcon
+            onClick={handlePlayPause}
+            className="footer-icon"
+            fontSize="large"
+          />
+        )}
+        <SkipNextIcon onClick={skipPrevious} className="footer-icon" />
+        <RepeatIcon className="footer-green" />
       </FooterCenter>
 
       <FooterRight>

@@ -70,6 +70,46 @@ const ListOfSongs = styled.div`
 function Body({ spotify }) {
   const [{ discover_weekly }, dispatch] = useDataLayerValue()
 
+  //#region functions
+  function playPlaylist(id) {
+    spotify
+      .play({
+        context_uri: `spotify:playlist:37i9dQZEVXcJZyENOWUFo7`,
+      })
+      .then((res) => {
+        spotify.getMyCurrentPlayingTrack().then((r) => {
+          dispatch({
+            type: 'SET_ITEM',
+            item: r.item,
+          })
+          dispatch({
+            type: 'SET_PLAYING',
+            playing: true,
+          })
+        })
+      })
+  }
+
+  function playSong(id) {
+    spotify
+      .play({
+        uris: [`spotify:track:${id}`],
+      })
+      .then((res) => {
+        spotify.getMyCurrentPlayingTrack().then((r) => {
+          dispatch({
+            type: 'SET_ITEM',
+            item: r.item,
+          })
+          dispatch({
+            type: 'SET_PLAYING',
+            playing: true,
+          })
+        })
+      })
+  }
+  //#endregion
+
   return (
     <BodyWrapper>
       <Header spotify={spotify} />
@@ -87,12 +127,13 @@ function Body({ spotify }) {
             color="primary"
             fontSize="large"
             className="body-shuffle"
+            onClick={playPlaylist}
           />
           <FavoriteIcon fontSize="large" />
           <MoreHorizIcon />
         </Icons>
         {discover_weekly?.tracks.items.map((item) => (
-          <SongRow track={item.track} key={item.track.id} />
+          <SongRow playSong={playSong} track={item.track} key={item.track.id} />
         ))}
       </ListOfSongs>
     </BodyWrapper>
