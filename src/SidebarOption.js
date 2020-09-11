@@ -17,12 +17,17 @@ const SidebarOptionWrapper = styled.div`
   .icon {
     margin-left: 10px;
     margin-right: 10px;
+    height: 30px;
   }
 
-  > p {
+  > p,
+  h4 {
     margin-top: 10px;
     margin-left: 20px;
     font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 `
 //#endregion

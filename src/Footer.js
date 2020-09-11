@@ -149,7 +149,11 @@ function Footer({ spotify }) {
   return (
     <FooterWrapper>
       <FooterLeft>
-        <img src={item?.album.images[0].url} alt={item?.name} />
+        <img
+          className="album-cover"
+          src={item?.album.images[0].url}
+          alt={item?.name}
+        />
         {item ? (
           <div className="footer-song-info">
             <h4>{item.name}</h4>

@@ -51,6 +51,13 @@ function App() {
           top_artists: response,
         }),
       )
+      spotify.getMyDevices().then((devices) => {
+        dispatch({
+          type: 'SET_DEVICE',
+          devices: devices,
+        })
+        console.log(devices)
+      })
       dispatch({
         type: 'SET_SPOTIFY',
         spotify: spotify,

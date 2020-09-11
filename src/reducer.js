@@ -6,9 +6,13 @@ export const initialState = {
   spotify: null,
   discover_weekly: null,
   top_artists: null,
+  devices: {},
+  //token:
+  // 'BQCvZ7RLyCogOPR2RFrv30ZeQNdyaZodKNMerB0pUsp_SanMMh1gC1w2-8bLbCRKfipV4uMumcdd-tt8ALtyvha3s6z3qN7imyMNfQocFy6dSKYtQ8pO_8eJdjkQT0ZIdqsf9GJvZaWBkKzhq8tUAhlkODCHj8OTgQ',
 }
 
 const reducer = (state, action) => {
+  console.log(state)
   switch (action.type) {
     case 'SET_USER':
       return {
@@ -44,6 +48,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         top_artists: action.top_artists,
+      }
+    case 'SET_USER_DEVICE':
+      return {
+        ...state,
+        devices: action.devices,
       }
     case 'SET_SPOTIFY':
       return {

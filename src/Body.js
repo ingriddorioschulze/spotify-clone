@@ -53,10 +53,16 @@ const Icons = styled.div`
 
   > .body-shuffle {
     font-size: 80px;
-    margin: 20px 0 20px 50px;
+    margin: 20px 0 20px 30px;
     fill: white;
   }
   .body-shuffle:hover {
+    transition: 100ms transform ease-in;
+    transform: scale(1.08);
+  }
+
+  .favorite-icon:hover,
+  .icon-hover:hover {
     transition: 100ms transform ease-in;
     transform: scale(1.08);
   }
@@ -129,8 +135,8 @@ function Body({ spotify }) {
             className="body-shuffle"
             onClick={playPlaylist}
           />
-          <FavoriteIcon fontSize="large" />
-          <MoreHorizIcon />
+          <FavoriteIcon fontSize="large" className="icon-hover" />
+          <MoreHorizIcon className="icon-hover" />
         </Icons>
         {discover_weekly?.tracks.items.map((item) => (
           <SongRow playSong={playSong} track={item.track} key={item.track.id} />
