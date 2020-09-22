@@ -7,8 +7,6 @@ export const initialState = {
   discover_weekly: null,
   top_artists: null,
   devices: {},
-  //token:
-  // 'BQCvZ7RLyCogOPR2RFrv30ZeQNdyaZodKNMerB0pUsp_SanMMh1gC1w2-8bLbCRKfipV4uMumcdd-tt8ALtyvha3s6z3qN7imyMNfQocFy6dSKYtQ8pO_8eJdjkQT0ZIdqsf9GJvZaWBkKzhq8tUAhlkODCHj8OTgQ',
 }
 
 const reducer = (state, action) => {
