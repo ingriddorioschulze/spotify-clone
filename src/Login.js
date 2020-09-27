@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { loginUrl } from './spotify'
 
-//#region
+//#region styles
 const LoginWrapper = styled.div`
   display: grid;
   place-items: center;
@@ -15,9 +15,9 @@ const LoginWrapper = styled.div`
 
   > a {
     padding: 20px;
-    background-color: #1db954;
+    background-color: ${({ theme }) => theme.colors.spotifyGreen};
     border-radius: 99px;
-    font-family: 'Montserrat';
+    font-family: ${({ theme }) => theme.font.family};
     font-weight: ${({ theme }) => theme.font.weight.bold};
     color: white;
     text-decoration: none;

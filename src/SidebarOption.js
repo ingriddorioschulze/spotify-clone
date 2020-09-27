@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-//#region
+//#region styles
 const SidebarOptionWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -24,7 +24,7 @@ const SidebarOptionWrapper = styled.div`
   h4 {
     margin-top: 10px;
     margin-left: 20px;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.font.size.m};
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

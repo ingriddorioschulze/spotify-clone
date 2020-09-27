@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-//#region
+//#region styles
 const SongRowWrapper = styled.div`
   margin-left: 20px;
   padding: 20px;
@@ -12,7 +12,7 @@ const SongRowWrapper = styled.div`
 
   :hover {
     cursor: pointer;
-    background-color: black;
+    background-color: ${({ theme }) => theme.colors.spotifyBlack};
     opacity: 0.8;
   }
 

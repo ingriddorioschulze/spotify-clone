@@ -7,7 +7,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import SearchIcon from '@material-ui/icons/Search'
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic'
 
-//#region
+//#region styles
 const SidebarWrapper = styled.div`
   flex: 0.2;
   color: white;
@@ -27,11 +27,11 @@ const SidebarWrapper = styled.div`
   .sidebar-title {
     margin-left: 10px;
     padding: 5px;
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.font.size.s};
   }
 
   hr {
-    border: 1px solid #282828;
+    border: 1px solid ${({ theme }) => theme.colors.spotifyBlack};
     width: 90%;
     margin: 10px auto;
   }
@@ -39,7 +39,7 @@ const SidebarWrapper = styled.div`
 //#endregion
 
 function Sidebar() {
-  const [{ playlists }, dispatch] = useDataLayerValue()
+  const [{ playlists }] = useDataLayerValue()
 
   return (
     <SidebarWrapper>

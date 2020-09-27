@@ -40,7 +40,7 @@ const InfoTextWrapper = styled.div`
   }
 
   > p {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.font.size.m};
   }
 `
 const Icons = styled.div`
@@ -52,7 +52,7 @@ const Icons = styled.div`
   }
 
   > .body-shuffle {
-    font-size: 80px;
+    font-size: ${({ theme }) => theme.font.size.l};
     margin: 20px 0 20px 30px;
     fill: white;
   }
@@ -74,19 +74,20 @@ const ListOfSongs = styled.div`
 //#endregion
 
 function Body({ spotify }) {
-  const [{ discover_weekly }, dispatch] = useDataLayerValue()
+  const [{ discover_weekly, devices }, dispatch] = useDataLayerValue()
 
   //#region functions
   function playPlaylist(id) {
     spotify
       .play({
-        context_uri: `spotify:playlist:37i9dQZEVXcJZyENOWUFo7`,
+        context_uri: `spotify:playlist:${id}`,
+        device_id: devices[0].id,
       })
       .then((res) => {
-        spotify.getMyCurrentPlayingTrack().then((r) => {
+        spotify.getMyCurrentPlayingTrack().then((response) => {
           dispatch({
             type: 'SET_ITEM',
-            item: r.item,
+            item: response.item,
           })
           dispatch({
             type: 'SET_PLAYING',
@@ -102,10 +103,10 @@ function Body({ spotify }) {
         uris: [`spotify:track:${id}`],
       })
       .then((res) => {
-        spotify.getMyCurrentPlayingTrack().then((r) => {
+        spotify.getMyCurrentPlayingTrack().then((response) => {
           dispatch({
             type: 'SET_ITEM',
-            item: r.item,
+            item: response.item,
           })
           dispatch({
             type: 'SET_PLAYING',

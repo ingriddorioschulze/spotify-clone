@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useDataLayerValue } from './DataLayer'
-
 import SkipNextIcon from '@material-ui/icons/SkipNext'
 import ShuffleIcon from '@material-ui/icons/Shuffle'
 import RepeatIcon from '@material-ui/icons/Repeat'
@@ -20,7 +19,7 @@ const FooterWrapper = styled.div`
   bottom: 0;
   height: 65px;
   width: 100%;
-  background-color: #282828;
+  background-color: ${({ theme }) => theme.colors.spotifyBlack};
   padding: 20px;
 `
 const FooterLeft = styled.div`
@@ -43,7 +42,7 @@ const FooterLeft = styled.div`
   }
 
   .footer-song-info > p {
-    font-size: 12px;
+    font-size: ${({ theme }) => theme.font.size.s};
   }
 `
 const FooterCenter = styled.div`
@@ -55,7 +54,7 @@ const FooterCenter = styled.div`
   max-width: 300px;
 
   .footer-green {
-    color: #1ed15e;
+    color: ${({ theme }) => theme.colors.spotifyGreen};
   }
 
   .footer-icon {
@@ -76,13 +75,13 @@ const FooterRight = styled.div`
   color: white;
 
   * .MuiSlider-root {
-    color: #1ed15e;
+    color: ${({ theme }) => theme.colors.spotifyGreen};
   }
 `
 //#endregion
 
 function Footer({ spotify }) {
-  const [{ token, item, playing }, dispatch] = useDataLayerValue()
+  const [{ item, playing }, dispatch] = useDataLayerValue()
 
   useEffect(() => {
     spotify.getMyCurrentPlaybackState().then((r) => {
@@ -150,9 +149,9 @@ function Footer({ spotify }) {
     <FooterWrapper>
       <FooterLeft>
         <img
+          alt={item?.name}
           className="album-cover"
           src={item?.album.images[0].url}
-          alt={item?.name}
         />
         {item ? (
           <div className="footer-song-info">
@@ -166,7 +165,6 @@ function Footer({ spotify }) {
           </div>
         )}
       </FooterLeft>
-
       <FooterCenter>
         <ShuffleIcon className="footer-green" />
         <SkipPreviousIcon onClick={skipNext} className="footer-icon" />
@@ -186,7 +184,6 @@ function Footer({ spotify }) {
         <SkipNextIcon onClick={skipPrevious} className="footer-icon" />
         <RepeatIcon className="footer-green" />
       </FooterCenter>
-
       <FooterRight>
         <Grid container spacing={2}>
           <Grid item>

@@ -40,7 +40,7 @@ const HeaderLeft = styled.div`
 //#endregion
 
 function Header() {
-  const [{ user }, dispatch] = useDataLayerValue()
+  const [{ user }] = useDataLayerValue()
 
   return (
     <HeaderWrapper>
